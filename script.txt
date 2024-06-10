@@ -1,0 +1,51 @@
+// script.js
+document.getElementById('calorieForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const animal = document.getElementById('animal').value;
+    const weight = parseFloat(document.getElementById('weight').value);
+    const age = parseFloat(document.getElementById('age').value);
+    const activity = document.getElementById('activity').value;
+
+    let calories = 0;
+
+    if (animal === 'dog') {
+        calories = calculateDogCalories(weight, age, activity);
+    } else if (animal === 'cat') {
+        calories = calculateCatCalories(weight, age, activity);
+    }
+
+    document.getElementById('result').textContent = `Daily Calorie Needs: ${calories.toFixed(2)} kcal`;
+});
+
+function calculateDogCalories(weight, age, activity) {
+    // Basic calorie need formula for dogs
+    let baseCalories = 70 * Math.pow(weight, 0.75);
+    
+    // Adjust based on activity level
+    if (activity === 'low') {
+        return baseCalories * 1.2;
+    } else if (activity === 'moderate') {
+        return baseCalories * 1.6;
+    } else if (activity === 'high') {
+        return baseCalories * 2.0;
+    }
+
+    return baseCalories;
+}
+
+function calculateCatCalories(weight, age, activity) {
+    // Basic calorie need formula for cats
+    let baseCalories = 70 * Math.pow(weight, 0.67);
+    
+    // Adjust based on activity level
+    if (activity === 'low') {
+        return baseCalories * 1.0;
+    } else if (activity === 'moderate') {
+        return baseCalories * 1.2;
+    } else if (activity === 'high') {
+        return baseCalories * 1.4;
+    }
+
+    return baseCalories;
+}
